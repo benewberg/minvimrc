@@ -6,7 +6,6 @@ set backspace=indent,eol,start
 set ttimeout
 set ttimeoutlen=10
 set incsearch
-set laststatus=2
 set ruler
 set wildmenu
 set number relativenumber
@@ -22,21 +21,36 @@ set statusline+=%1*
 set statusline+=
 set statusline+=%9*
 set statusline+=%{b:gitbranch}
-set statusline+=%8*
+set statusline+=%7*
 set statusline+=
-"set statusline+=%9*
+set statusline+=%9*
 set statusline+=%r
+set statusline+=%7*
+set statusline+=
+set statusline+=%9*
 set statusline+=%m
+set statusline+=%7*
+set statusline+=
+set statusline+=%9*
 set statusline+=%=
-set statusline+=%F
-set statusline+=<
+set statusline+=%7*
+set statusline+=
+set statusline+=%9*
+set statusline+=%{StatuslineCurrentDirectory()}
+set statusline+=%7*
+set statusline+=
+set statusline+=%9*
 set statusline+=%P
+set statusline+=%3*
+set statusline+=
 set statusline+=%4*
-set statusline+=<
-set statusline+=%3l:%-2v
+set statusline+=\  
+set statusline+=%3l:%-2v
 hi User1 ctermbg=black ctermfg=lightgreen guibg=black guifg=lightgreen
 hi User2 ctermbg=lightgreen ctermfg=black guibg=lightgreen guifg=black
+hi User3 ctermbg=black ctermfg=lightgray guibg=black guifg=lightgray
 hi User4 ctermbg=lightgray ctermfg=black guibg=lightgray guifg=black
+hi User7 ctermbg=black ctermfg=black guibg=black guifg=black
 hi User8 ctermbg=white ctermfg=black guibg=white guifg=black
 hi User9 ctermbg=black ctermfg=white guibg=black guifg=white
 
@@ -68,7 +82,7 @@ function! StatuslineGitBranch()
       let l:dir=expand('%:p:h')
       let l:gitrevparse = system("git -C ".l:dir." rev-parse --abbrev-ref HEAD")
       if !v:shell_error
-        let b:gitbranch="  ".substitute(l:gitrevparse, ' ', '', 'g')
+        let b:gitbranch="  ".substitute(l:gitrevparse, '\n', '', 'g')." "
       endif
     catch
     endtry
@@ -77,6 +91,10 @@ endfunction
 
 function! StatuslineReadonly()
   return &readonly ? '' : ''
+endfunction
+
+function! StatuslineCurrentDirectory() abort
+  return getcwd()
 endfunction
 
 augroup GetGitBranch
