@@ -33,9 +33,7 @@ set statusline+=<
 set statusline+=%P
 set statusline+=%4*
 set statusline+=<
-set statusline+=%l
-set statusline+=:
-set statusline+=%c
+set statusline+=%3l:%-2v
 hi User1 ctermbg=black ctermfg=lightgreen guibg=black guifg=lightgreen
 hi User2 ctermbg=lightgreen ctermfg=black guibg=lightgreen guifg=black
 hi User4 ctermbg=lightgray ctermfg=black guibg=lightgray guifg=black
@@ -70,7 +68,7 @@ function! StatuslineGitBranch()
       let l:dir=expand('%:p:h')
       let l:gitrevparse = system("git -C ".l:dir." rev-parse --abbrev-ref HEAD")
       if !v:shell_error
-        let b:gitbranch="  ".substitute(l:gitrevparse, ' ', '', 'g')."  "
+        let b:gitbranch="  ".substitute(l:gitrevparse, ' ', '', 'g')
       endif
     catch
     endtry
