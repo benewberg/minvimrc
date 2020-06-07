@@ -1,0 +1,87 @@
+set nocompatible
+filetype plugin indent on
+syntax enable
+set autoindent
+set backspace=indent,eol,start
+set ttimeout
+set ttimeoutlen=10
+set incsearch
+set laststatus=2
+set ruler
+set wildmenu
+set number relativenumber
+set noshowmode
+
+noremap <F1> :w<CR>
+
+set laststatus=2
+set statusline=
+set statusline+=%2*
+set statusline+=%{StatuslineMode()}
+set statusline+=%1*
+set statusline+=
+set statusline+=%9*
+set statusline+=%{b:gitbranch}
+set statusline+=%8*
+set statusline+=
+"set statusline+=%9*
+set statusline+=%r
+set statusline+=%m
+set statusline+=%=
+set statusline+=%F
+set statusline+=<
+set statusline+=%P
+set statusline+=%4*
+set statusline+=<
+set statusline+=%l
+set statusline+=:
+set statusline+=%c
+hi User1 ctermbg=black ctermfg=lightgreen guibg=black guifg=lightgreen
+hi User2 ctermbg=lightgreen ctermfg=black guibg=lightgreen guifg=black
+hi User4 ctermbg=lightgray ctermfg=black guibg=lightgray guifg=black
+hi User8 ctermbg=white ctermfg=black guibg=white guifg=black
+hi User9 ctermbg=black ctermfg=white guibg=black guifg=white
+
+function! StatuslineMode()
+  let l:mode=mode()
+  if l:mode==#"n"
+    return "  NORMAL "
+  elseif l:mode==?"v"
+    return "  VISUAL "
+  elseif l:mode==#"i"
+    return "  INSERT "
+  elseif l:mode==#"R"
+    return "  REPLACE "
+  elseif l:mode==?"s"
+    return "  SELECT "
+  elseif l:mode==#"t"
+    return "  TERMINAL "
+  elseif l:mode==#"c"
+    return "  COMMAND "
+  elseif l:mode==#"!"
+    return "  SHELL "
+  endif
+endfunction
+
+function! StatuslineGitBranch()
+  let b:gitbranch=""
+  if &modifiable
+    try
+      let l:dir=expand('%:p:h')
+      let l:gitrevparse = system("git -C ".l:dir." rev-parse --abbrev-ref HEAD")
+      if !v:shell_error
+        let b:gitbranch="  ".substitute(l:gitrevparse, ' ', '', 'g')."  "
+      endif
+    catch
+    endtry
+  endif
+endfunction
+
+function! StatuslineReadonly()
+  return &readonly ? '' : ''
+endfunction
+
+augroup GetGitBranch
+  autocmd!
+  autocmd VimEnter,WinEnter,BufEnter * call StatuslineGitBranch()
+augroup END
