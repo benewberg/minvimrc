@@ -1,3 +1,6 @@
+" ---------
+"  general
+" ---------
 set nocompatible
 filetype plugin indent on
 syntax enable
@@ -6,13 +9,18 @@ set backspace=indent,eol,start
 set ttimeout
 set ttimeoutlen=10
 set incsearch
-"set ruler
 set wildmenu
 set number relativenumber
 set noshowmode
 
+" ----------
+"  mappings
+" ----------
 noremap <F1> :w<CR>
 
+" ------------
+"  statusline
+" ------------
 set laststatus=2
 set statusline=
 set statusline+=%2*
@@ -41,7 +49,7 @@ set statusline+=%5*
 set statusline+=
 set statusline+=%6*
 set statusline+=\  
-set statusline+=%P
+set statusline+=%{StatuslinePercentOfFile()}
 set statusline+=\  
 set statusline+=%3*
 set statusline+=
@@ -100,8 +108,10 @@ function! StatuslineCurrentDirectory() abort
   return getcwd()." "
 endfunction
 
-function! StatuslinePercentOfFile(current_line, total_lines)
-  return current_line / total_lines
+function! StatuslinePercentOfFile()
+  let current = line('.') + 0.0
+  let total = line('$') + 0.0
+  return printf('%.0f%%', (current / total) * 100)
 endfunction
 
 augroup GetGitBranch
