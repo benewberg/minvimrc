@@ -6,7 +6,7 @@ set backspace=indent,eol,start
 set ttimeout
 set ttimeoutlen=10
 set incsearch
-set ruler
+"set ruler
 set wildmenu
 set number relativenumber
 set noshowmode
@@ -19,28 +19,30 @@ set statusline+=%2*
 set statusline+=%{StatuslineMode()}
 set statusline+=%1*
 set statusline+=
-set statusline+=%9*
+set statusline+=%8*
 set statusline+=%{b:gitbranch}
 set statusline+=%7*
 set statusline+=
-set statusline+=%9*
+set statusline+=%8*
 set statusline+=%r
 set statusline+=%7*
 set statusline+=
-set statusline+=%9*
+set statusline+=%8*
 set statusline+=%m
 set statusline+=%7*
 set statusline+=
-set statusline+=%9*
+set statusline+=%8*
 set statusline+=%=
 set statusline+=%7*
 set statusline+=
-set statusline+=%9*
+set statusline+=%8*
 set statusline+=%{StatuslineCurrentDirectory()}
-set statusline+=%7*
+set statusline+=%5*
 set statusline+=
-set statusline+=%9*
+set statusline+=%6*
+set statusline+=\  
 set statusline+=%P
+set statusline+=\  
 set statusline+=%3*
 set statusline+=
 set statusline+=%4*
@@ -48,11 +50,12 @@ set statusline+=\
 set statusline+=%3l:%-2v
 hi User1 ctermbg=black ctermfg=lightgreen guibg=black guifg=lightgreen
 hi User2 ctermbg=lightgreen ctermfg=black guibg=lightgreen guifg=black
-hi User3 ctermbg=black ctermfg=lightgray guibg=black guifg=lightgray
+hi User3 ctermbg=darkgray ctermfg=lightgray guibg=darkgray guifg=lightgray
 hi User4 ctermbg=lightgray ctermfg=black guibg=lightgray guifg=black
+hi User5 ctermbg=black ctermfg=darkgray guibg=black guifg=darkgray
+hi User6 ctermbg=darkgray ctermfg=black guibg=darkgray guifg=black
 hi User7 ctermbg=black ctermfg=black guibg=black guifg=black
-hi User8 ctermbg=white ctermfg=black guibg=white guifg=black
-hi User9 ctermbg=black ctermfg=white guibg=black guifg=white
+hi User8 ctermbg=black ctermfg=white guibg=black guifg=white
 
 function! StatuslineMode()
   let l:mode=mode()
@@ -94,7 +97,11 @@ function! StatuslineReadonly()
 endfunction
 
 function! StatuslineCurrentDirectory() abort
-  return getcwd()
+  return getcwd()." "
+endfunction
+
+function! StatuslinePercentOfFile(current_line, total_lines)
+  return current_line / total_lines
 endfunction
 
 augroup GetGitBranch
