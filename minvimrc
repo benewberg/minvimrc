@@ -28,6 +28,13 @@ set noshowmode
 set expandtab tabstop=4 shiftwidth=4 smarttab
 colorscheme jellybeans
 
+" -----------------
+"  plugin settings
+" -----------------
+"  python-syntax
+let g:python_highlight_all = 1
+
+
 " ----------
 "  mappings
 " ----------
