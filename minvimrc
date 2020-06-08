@@ -6,7 +6,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'nanotech/jellybeans.vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'vim-python/python-syntax'
 call plug#end()
 
@@ -26,7 +26,6 @@ set wildmenu
 set number relativenumber
 set noshowmode
 set expandtab tabstop=4 shiftwidth=4 smarttab
-colorscheme jellybeans
 
 " -----------------
 "  plugin settings
@@ -34,6 +33,8 @@ colorscheme jellybeans
 "  python-syntax
 let g:python_highlight_all = 1
 
+"  nord
+colorscheme nord
 
 " ----------
 "  mappings
