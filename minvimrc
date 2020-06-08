@@ -26,6 +26,7 @@ set wildmenu
 set number relativenumber
 set noshowmode
 set expandtab tabstop=4 shiftwidth=4 smarttab
+set nowrap
 
 " -----------------
 "  plugin settings
@@ -44,6 +45,12 @@ nnoremap Y y$
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
 nnoremap <leader>b :b <C-d>
+
+" -------
+"  tools
+" -------
+"  git blame
+command! -range GB echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " blame -L <line1>,<line2> " . expand('%:t')), "\n")
 
 " ------------
 "  statusline
