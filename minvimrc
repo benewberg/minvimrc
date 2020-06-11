@@ -38,6 +38,7 @@ let g:python_highlight_all = 1
 
 "  nord
 colorscheme nord
+hi Visual term=reverse cterm=reverse
 
 " ----------
 "  mappings
