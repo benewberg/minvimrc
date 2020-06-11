@@ -102,12 +102,12 @@ hi User7 ctermbg=black ctermfg=black guibg=black guifg=black
 hi User8 ctermbg=black ctermfg=white guibg=black guifg=white
 hi NormalColorText ctermbg=6 ctermfg=0
 hi NormalColorSep ctermbg=0 ctermfg=6
-hi InsertColorText ctermbg=7 ctermfg=0
-hi InsertColorSep ctermbg=0 ctermfg=7
+hi InsertColorText ctermbg=3 ctermfg=0
+hi InsertColorSep ctermbg=0 ctermfg=3
 hi VisualColorText ctermbg=5 ctermfg=0
 hi VisualColorSep ctermbg=0 ctermfg=5
-hi ReplaceColorText ctermbg=3 ctermfg=0
-hi ReplaceColorSep ctermbg=0 ctermfg=3
+hi ReplaceColorText ctermbg=1 ctermfg=0
+hi ReplaceColorSep ctermbg=0 ctermfg=1
 
 function! StatuslineMode()
   let l:mode=mode()
