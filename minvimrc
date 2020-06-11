@@ -59,14 +59,14 @@ command! -range GB echo join(systemlist("git -C " . shellescape(expand('%:p:h'))
 " ------------
 set laststatus=2
 set statusline=
-set statusline+=%#NormalColorText#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+set statusline+=%#NormalColorText#%{(mode()=='n')?g:currentmode[mode()]:''}
 set statusline+=%#NormalColorSep#%{(mode()=='n')?'\ ':''}
-set statusline+=%#InsertColorText#%{(mode()=='i')?'\ \ INSERT\ ':''}
+set statusline+=%#InsertColorText#%{(mode()=='i')?g:currentmode[mode()]:''}
 set statusline+=%#InsertColorSep#%{(mode()=='i')?'\ ':''}
-set statusline+=%#VisualColorText#%{(mode()==?'v')?'\ \ VISUAL\ ':''}
-set statusline+=%#VisualColorSep#%{(mode()==?'v')?'\ ':''}
-set statusline+=%#ReplaceColorText#%{(mode()=='R')?'\ \ REPLACE\ ':''}
-set statusline+=%#ReplaceColorSep#%{(mode()==?'R')?'\ ':''}
+set statusline+=%#VisualColorText#%{(IsVisualMode())?g:currentmode[mode()]:''}
+set statusline+=%#VisualColorSep#%{(IsVisualMode())?'\ ':''}
+set statusline+=%#ReplaceColorText#%{(mode()=='R')?g:currentmode[mode()]:''}
+set statusline+=%#ReplaceColorSep#%{(mode()=='R')?'\ ':''}
 set statusline+=%8*
 set statusline+=%{b:gitbranch}
 set statusline+=%7*
@@ -111,26 +111,30 @@ hi VisualColorSep ctermbg=0 ctermfg=5
 hi ReplaceColorText ctermbg=1 ctermfg=0
 hi ReplaceColorSep ctermbg=0 ctermfg=1
 
-function! StatuslineMode()
-  let l:mode=mode()
-  if l:mode==#"n"
-" set statusline+=%#IsModified#%{&mod?expand('%'):''}%*%#IsNotModified#%{&mod?'':expand('%')}%*
-    return %#NormalMode#%{expand("  NORMAL ")}%*
-  elseif l:mode==?"v"
-    return "  VISUAL "
-  elseif l:mode==#"i"
-    return "  INSERT "
-  elseif l:mode==#"R"
-    return "  REPLACE "
-  elseif l:mode==?"s"
-    return "  SELECT "
-  elseif l:mode==#"t"
-    return "  TERMINAL "
-  elseif l:mode==#"c"
-    return "  COMMAND "
-  elseif l:mode==#"!"
-    return "  SHELL "
-  endif
+let g:currentmode={
+      \ 'n': '  NORMAL ',
+      \ 'no': '  N-OPERATOR PENDING ',
+      \ 'v': '  VISUAL ',
+      \ 'V': '  V-LINE ',
+      \ '': '  V-BLOCK ',
+      \ 's': 'Select ',
+      \ 'S': 'S·Line ',
+      \ '\<C-S>': 'S·Block ',
+      \ 'i': '  INSERT ',
+      \ 'R': '  REPLACE ',
+      \ 'Rv': 'V·Replace ',
+      \ 'c': 'Command ',
+      \ 'cv': 'Vim Ex ',
+      \ 'ce': 'Ex ',
+      \ 'r': 'Prompt ',
+      \ 'rm': 'More ',
+      \ 'r?': 'Confirm ',
+      \ '!': 'Shell ',
+      \ 't': 'Terminal '
+      \}
+
+function! IsVisualMode()
+  return (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# '  V-BLOCK ')
 endfunction
 
 function! StatuslineGitBranch()
