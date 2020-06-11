@@ -21,12 +21,14 @@ set backspace=indent,eol,start
 set ignorecase
 set ttimeout
 set ttimeoutlen=10
+set hlsearch
 set incsearch
 set wildmenu
 set number relativenumber
 set noshowmode
 set expandtab tabstop=4 shiftwidth=4 smarttab
 set nowrap
+set mouse=a
 
 " -----------------
 "  plugin settings
@@ -146,7 +148,10 @@ function! StatuslineGitBranch()
 endfunction
 
 function! StatuslineReadonly()
-  return &readonly ? '' : ''
+  if &readonly || !&modifiable
+    return ''
+  else
+    return ''
 endfunction
 
 function! StatuslineCurrentDirectory() abort
