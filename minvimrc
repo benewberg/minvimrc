@@ -82,9 +82,9 @@ hi User1 ctermbg=black ctermfg=white guibg=black guifg=white
 hi User2 ctermbg=darkgray ctermfg=black guibg=darkgray guifg=black
 hi User3 ctermbg=lightgray ctermfg=black guibg=lightgray guifg=black
 hi NormalColorText ctermbg=6 ctermfg=0
-hi InsertColorText ctermbg=3 ctermfg=0
+hi InsertColorText ctermbg=4 ctermfg=0
 hi VisualColorText ctermbg=5 ctermfg=0
-hi ReplaceColorText ctermbg=1 ctermfg=0
+hi ReplaceColorText ctermbg=11 ctermfg=0
 
 let g:currentmode={
       \ 'n': '  NORMAL ',
