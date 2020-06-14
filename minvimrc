@@ -47,9 +47,10 @@ noremap <F1> :w<CR>
 nnoremap Y y$
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
-nnoremap <leader>b :b <C-d>
+nnoremap <leader>b :CtrlPBuffer<CR>
 
 " -------
+"
 "  tools
 " -------
 "  git blame
@@ -61,56 +62,29 @@ command! -range GB echo join(systemlist("git -C " . shellescape(expand('%:p:h'))
 set laststatus=2
 set statusline=
 set statusline+=%#NormalColorText#%{(mode()=='n')?g:currentmode[mode()]:''}
-set statusline+=%#NormalColorSep#%{(mode()=='n')?'\ ':''}
 set statusline+=%#InsertColorText#%{(mode()=='i')?g:currentmode[mode()]:''}
-set statusline+=%#InsertColorSep#%{(mode()=='i')?'\ ':''}
 set statusline+=%#VisualColorText#%{(IsVisualMode())?g:currentmode[mode()]:''}
-set statusline+=%#VisualColorSep#%{(IsVisualMode())?'\ ':''}
 set statusline+=%#ReplaceColorText#%{(mode()=='R')?g:currentmode[mode()]:''}
-set statusline+=%#ReplaceColorSep#%{(mode()=='R')?'\ ':''}
-set statusline+=%8*
+set statusline+=%1*
 set statusline+=%{b:gitbranch}
-set statusline+=%7*
-set statusline+=
-set statusline+=%8*
 set statusline+=%{StatuslineReadonly()}
-set statusline+=%7*
-set statusline+=
-set statusline+=%8*
 set statusline+=%m
-set statusline+=%7*
-set statusline+=
-set statusline+=%8*
 set statusline+=%=
-set statusline+=%7*
-set statusline+=
-set statusline+=%8*
 set statusline+=%{StatuslineCurrentDirectory()}
-set statusline+=%5*
-set statusline+=
-set statusline+=%6*
+set statusline+=%2*
 set statusline+=\  
 set statusline+=%{StatuslinePercentOfFile()}
 set statusline+=\  
 set statusline+=%3*
-set statusline+=
-set statusline+=%4*
 set statusline+=\  
 set statusline+=%3l:%-2v
-hi User3 ctermbg=darkgray ctermfg=lightgray guibg=darkgray guifg=lightgray
-hi User4 ctermbg=lightgray ctermfg=black guibg=lightgray guifg=black
-hi User5 ctermbg=black ctermfg=darkgray guibg=black guifg=darkgray
-hi User6 ctermbg=darkgray ctermfg=black guibg=darkgray guifg=black
-hi User7 ctermbg=black ctermfg=black guibg=black guifg=black
-hi User8 ctermbg=black ctermfg=white guibg=black guifg=white
+hi User1 ctermbg=black ctermfg=white guibg=black guifg=white
+hi User2 ctermbg=darkgray ctermfg=black guibg=darkgray guifg=black
+hi User3 ctermbg=lightgray ctermfg=black guibg=lightgray guifg=black
 hi NormalColorText ctermbg=6 ctermfg=0
-hi NormalColorSep ctermbg=0 ctermfg=6
 hi InsertColorText ctermbg=3 ctermfg=0
-hi InsertColorSep ctermbg=0 ctermfg=3
 hi VisualColorText ctermbg=5 ctermfg=0
-hi VisualColorSep ctermbg=0 ctermfg=5
 hi ReplaceColorText ctermbg=1 ctermfg=0
-hi ReplaceColorSep ctermbg=0 ctermfg=1
 
 let g:currentmode={
       \ 'n': '  NORMAL ',
@@ -145,7 +119,7 @@ function! StatuslineGitBranch()
       let l:dir=expand('%:p:h')
       let l:gitrevparse = system("git -C ".l:dir." rev-parse --abbrev-ref HEAD")
       if !v:shell_error
-        let b:gitbranch="  ".substitute(l:gitrevparse, '\n', '', 'g')." "
+        let b:gitbranch="   ".substitute(l:gitrevparse, '\n', '', 'g')." "
       endif
     catch
     endtry
