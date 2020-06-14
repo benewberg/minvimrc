@@ -48,9 +48,9 @@ nnoremap Y y$
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>g :GB<CR>
 
 " -------
-"
 "  tools
 " -------
 "  git blame
