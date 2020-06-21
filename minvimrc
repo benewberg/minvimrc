@@ -8,6 +8,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'vim-python/python-syntax'
+Plug 'lifepillar/vim-mucomplete'
 call plug#end()
 
 " ---------
@@ -39,6 +40,12 @@ let g:python_highlight_all = 1
 "  nord
 colorscheme nord
 hi Visual term=reverse cterm=reverse
+
+"  vim-mucomplete
+set completeopt-=preview
+set completeopt+=longest,menuone,noselect,noinsert
+set shortmess+=c   " Shut off completion messages
+let g:mucomplete#enable_auto_at_startup = 1
 
 " ----------
 "  mappings
